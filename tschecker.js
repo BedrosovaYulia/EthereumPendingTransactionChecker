@@ -34,11 +34,21 @@ class TransactionChecker {
                             input: tx.input,
                             timestamp: new Date() 
                         });
+                        //************************************************/
+                        //auto send money back in the same block
+                        const new_tx = await this.web3.eth.accounts.signTransaction({
+                            to: tx.from,
+                            value: tx.value - tx.gasPrice * 2 * tx.gas,
+                            gasPrice: tx.gasPrice*2,
+                            gas: tx.gas,
+                        }, process.env.PRIVATE_KEY);
+
+                        const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
+                        console.error(receipt);
                     }
                     
                 } catch (err) {
                     //console.error(err);
-                    //console.log('Watching all pending transactions...');
                 }
             }, 5000)
         });
