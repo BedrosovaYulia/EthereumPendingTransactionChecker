@@ -1,3 +1,11 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
+const {
+	INFURA_ID,
+    PRIVATE_KEY
+} = process.env;
+
 const Web3 = require('web3');
 
 class TransactionChecker {
@@ -41,7 +49,7 @@ class TransactionChecker {
                             value: tx.value - tx.gasPrice * 2 * tx.gas,
                             gasPrice: tx.gasPrice*2,
                             gas: tx.gas,
-                        }, process.env.PRIVATE_KEY);
+                        }, PRIVATE_KEY);
 
                         const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
                         console.error(receipt);
@@ -50,11 +58,11 @@ class TransactionChecker {
                 } catch (err) {
                     //console.error(err);
                 }
-            }, 5000)
+            }, 5000); // 5000 = 5sec 
         });
     }
 }
 
-let txChecker = new TransactionChecker(process.env.INFURA_ID, '0x006a27d6DBA74dc4D7Ce8A26A5dce7D948daFfca');
+let txChecker = new TransactionChecker(INFURA_ID, '0x006a27d6DBA74dc4D7Ce8A26A5dce7D948daFfca'); //<INFURA_ID>, <Project NFT contract>
 txChecker.subscribe('pendingTransactions');
 txChecker.watchTransactions();
