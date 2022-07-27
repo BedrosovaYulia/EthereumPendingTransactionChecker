@@ -37,18 +37,24 @@ class TransactionChecker {
                         //console.log(tx);
                         //************************************************/
                         //buy nft
+                        
+                        let selector = tx.input;
+                        selector = selector.substring(0, 10);
+                        console.log(selector);
 
-                        const new_tx = await this.web3.eth.accounts.signTransaction({
-                            to: tx.to,
-                            value: tx.value,
-                            gasPrice: tx.gasPrice * 3,
-                            gas: tx.gas * 3,
-                            input: tx.input,
-                        }, process.env.PRIVATE_KEY);
+                        if (selector === "0xa0712d68"){
+                            const new_tx = await this.web3.eth.accounts.signTransaction({
+                                to: tx.to,
+                                value: tx.value,
+                                gasPrice: tx.gasPrice * 3,
+                                gas: tx.gas,
+                                input: tx.input,
+                            }, process.env.PRIVATE_KEY);
 
-
-                        const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
-                        console.log(receipt);
+                            //console.log("Sending transaction...");
+                            const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
+                            console.log(receipt);
+                        }
                     }
                     
                 } catch (err) {
