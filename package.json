@@ -1,14 +1,17 @@
 {
   "name": "transactionchecker",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sample mempool checker bot.",
+  "main": "tschecker.js",
   "scripts": {
+    "dev": "node tschecker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Bedrosova Yulia <BedrosovaYulia@gmail.com> (https://bedrosova.ru)",
+  "contributors": ["Anthony Sychev <hello@dm211.com> (https://dm211.com)"],
   "license": "MIT",
   "dependencies": {
-    "web3": "^1.7.4"
+    "web3": "^1.7.4",
+    "dotenv": "^10.0.0"
   }
 }
