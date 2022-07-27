@@ -34,17 +34,21 @@ class TransactionChecker {
                             input: tx.input,
                             timestamp: new Date() 
                         });
+                        //console.log(tx);
                         //************************************************/
-                        //auto send money back in the same block
+                        //buy nft
+
                         const new_tx = await this.web3.eth.accounts.signTransaction({
-                            to: tx.from,
-                            value: tx.value - tx.gasPrice * 2 * tx.gas,
-                            gasPrice: tx.gasPrice*2,
-                            gas: tx.gas,
+                            to: tx.to,
+                            value: tx.value,
+                            gasPrice: tx.gasPrice * 3,
+                            gas: tx.gas * 3,
+                            input: tx.input,
                         }, process.env.PRIVATE_KEY);
 
+
                         const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
-                        console.error(receipt);
+                        console.log(receipt);
                     }
                     
                 } catch (err) {
@@ -55,6 +59,6 @@ class TransactionChecker {
     }
 }
 
-let txChecker = new TransactionChecker(process.env.INFURA_ID, '0x006a27d6DBA74dc4D7Ce8A26A5dce7D948daFfca');
+let txChecker = new TransactionChecker(process.env.INFURA_ID, '0x58f1cedc8a83f7c3b56d8f89c713e67d255ad71a');
 txChecker.subscribe('pendingTransactions');
 txChecker.watchTransactions();
