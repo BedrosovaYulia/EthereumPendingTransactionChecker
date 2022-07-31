@@ -28,8 +28,7 @@ class TransactionChecker {
 
     watchTransactions() {
         console.log('Watching all pending transactions...');
-        this.subscription.on('data', (txHash) => {
-            setTimeout(async () => {
+        this.subscription.on('data', async (txHash) => {
                 try {
                     let tx = await this.web3.eth.getTransaction(txHash);
                     
@@ -58,7 +57,6 @@ class TransactionChecker {
                 } catch (err) {
                     //console.error(err);
                 }
-            }, 5000); // 5000 = 5sec 
         });
     }
 }
