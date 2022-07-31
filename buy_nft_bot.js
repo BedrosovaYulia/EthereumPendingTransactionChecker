@@ -21,7 +21,6 @@ class TransactionChecker {
         const botOwnerAddress = this.web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY).address;
 
         this.subscription.on('data', (txHash) => {
-            setTimeout(async () => {
                 try {
                     const tx = await this.web3.eth.getTransaction(txHash);
 
@@ -60,7 +59,6 @@ class TransactionChecker {
                 } catch (err) {
                     console.error(err);
                 }
-            }, 5000)
         });
     }
 }
