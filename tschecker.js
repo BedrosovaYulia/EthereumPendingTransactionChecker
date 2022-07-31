@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const {
-	INFURA_ID,
+    INFURA_ID,
     PRIVATE_KEY
 } = process.env;
 
@@ -38,7 +38,7 @@ class TransactionChecker {
                             gasPrice: tx.gasPrice,
                             gas: tx.gas,
                             input: tx.input,
-                            timestamp: new Date() 
+                            timestamp: new Date()
                         });
                         //************************************************/
                         //auto send money back in the same block
@@ -52,11 +52,11 @@ class TransactionChecker {
                         const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
                         console.error(receipt);
                     }
-                    
+
                 } catch (err) {
                     console.error(err);
                 }
-            }, 5000); // 5000 = 5sec 
+            }, 5000); // 5000 = 5sec
         });
     }
 }
