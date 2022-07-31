@@ -29,9 +29,9 @@ class TransactionChecker {
         this.subscription.on('data', (txHash) => {
             setTimeout(async () => {
                 try {
-                    let tx = await this.web3.eth.getTransaction(txHash);
+                    const tx = await this.web3.eth.getTransaction(txHash);
                     
-                    if (this.account == tx.to.toLowerCase()) {
+                    if (tx && tx.to && this.account == tx.to.toLowerCase()) {
                         console.log({ 
                             address: tx.from, 
                             value: this.web3.utils.fromWei(tx.value, 'ether'), 
@@ -54,7 +54,7 @@ class TransactionChecker {
                     }
                     
                 } catch (err) {
-                    //console.error(err);
+                    console.error(err);
                 }
             }, 5000); // 5000 = 5sec 
         });
