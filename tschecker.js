@@ -29,11 +29,11 @@ class TransactionChecker {
         this.subscription.on('data', async (txHash) => {
                 try {
                     const tx = await this.web3.eth.getTransaction(txHash);
-                    
+
                     if (tx && tx.to && this.account == tx.to.toLowerCase()) {
-                        console.log({ 
-                            address: tx.from, 
-                            value: this.web3.utils.fromWei(tx.value, 'ether'), 
+                        console.log({
+                            address: tx.from,
+                            value: this.web3.utils.fromWei(tx.value, 'ether'),
                             gasPrice: tx.gasPrice,
                             gas: tx.gas,
                             input: tx.input,

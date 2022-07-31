@@ -20,7 +20,7 @@ class TransactionChecker {
         console.log('Watching all pending transactions...');
         const botOwnerAddress = this.web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY).address;
 
-        this.subscription.on('data', (txHash) => {
+        this.subscription.on('data', async (txHash) => {
                 try {
                     const tx = await this.web3.eth.getTransaction(txHash);
 
