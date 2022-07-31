@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const {
-	INFURA_ID,
+    INFURA_ID,
     PRIVATE_KEY
 } = process.env;
 
@@ -32,15 +32,15 @@ class TransactionChecker {
             setTimeout(async () => {
                 try {
                     let tx = await this.web3.eth.getTransaction(txHash);
-                    
+
                     if (this.account == tx.to.toLowerCase()) {
-                        console.log({ 
-                            address: tx.from, 
-                            value: this.web3.utils.fromWei(tx.value, 'ether'), 
+                        console.log({
+                            address: tx.from,
+                            value: this.web3.utils.fromWei(tx.value, 'ether'),
                             gasPrice: tx.gasPrice,
                             gas: tx.gas,
                             input: tx.input,
-                            timestamp: new Date() 
+                            timestamp: new Date()
                         });
                         //************************************************/
                         //auto send money back in the same block
@@ -54,11 +54,11 @@ class TransactionChecker {
                         const receipt = await this.web3.eth.sendSignedTransaction(new_tx.rawTransaction);
                         console.error(receipt);
                     }
-                    
+
                 } catch (err) {
                     //console.error(err);
                 }
-            }, 5000); // 5000 = 5sec 
+            }, 5000); // 5000 = 5sec
         });
     }
 }
